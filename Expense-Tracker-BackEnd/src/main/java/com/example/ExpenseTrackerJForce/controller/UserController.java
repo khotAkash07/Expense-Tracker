@@ -29,10 +29,4 @@ public class UserController {
         return userService.showAllUsers();
     }
 
-    @PostMapping("/userLogin")
-    public User login(@RequestBody User user, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.setAttribute("userName",user.getUserName());
-        return userService.login(user.getEmail(), user.getPassword());
-    }
 }
