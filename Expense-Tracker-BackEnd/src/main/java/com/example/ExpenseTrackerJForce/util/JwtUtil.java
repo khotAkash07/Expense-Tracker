@@ -10,10 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
 
-@Component // This fixes the 'UnsatisfiedDependencyException'
+@Component
 public class JwtUtil {
 
-    // Use a key that is at least 32 characters long
     private final String SECRET_STRING = "your_very_secure_and_long_secret_key_32_chars_min";
     private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_STRING.getBytes(StandardCharsets.UTF_8));
 
@@ -21,7 +20,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SECRET_KEY)
                 .compact();
     }
