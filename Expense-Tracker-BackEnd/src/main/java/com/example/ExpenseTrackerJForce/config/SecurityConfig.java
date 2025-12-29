@@ -4,6 +4,7 @@ import com.example.ExpenseTrackerJForce.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,51 +31,69 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
+                // ✅ Enable CORS with custom config
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+                // ✅ Disable CSRF (JWT based app)
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authz -> authz
-                        // Public endpoints - no authentication required
+
+                // ✅ Stateless session
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
+                // ✅ Authorization rules
+                .authorizeHttpRequests(auth -> auth
+
+                        // 🔥 VERY IMPORTANT — allow preflight
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Public endpoints
                         .requestMatchers(
                                 "/user/addUser",
                                 "/auth/login",
                                 "/error"
                         ).permitAll()
-                        // All other endpoints require authentication
+
+                        // All others secured
                         .anyRequest().authenticated()
-                )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
 
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        // ✅ JWT filter
+        http.addFilterBefore(
+                jwtAuthenticationFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
+
         return http.build();
     }
 
+    // ✅ CORS configuration
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // 1. Set Allowed Origins
-        // Ensure there is NO trailing slash at the end of the Vercel URL
         configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173",
                 "http://localhost:3000",
+                "http://localhost:5173",
                 "https://expense-tracker-frontend-nine-omega.vercel.app"
         ));
 
-        // 2. Set Allowed Methods
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedMethods(Arrays.asList(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
+        ));
 
-        // 3. Set Allowed Headers
-        // Using "*" allows all headers, including Authorization headers required for JWT
         configuration.setAllowedHeaders(Collections.singletonList("*"));
 
-        // 4. Allow Credentials (Necessary for cookies/Authorization headers)
         configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+
         return source;
     }
 
@@ -84,7 +103,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config
+    ) throws Exception {
         return config.getAuthenticationManager();
     }
 }
