@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc93fe76-037f-43e4-9e30-54ac8a631ec7" name="Changes" comment="" />
+    <list default="true" id="dc93fe76-037f-43e4-9e30-54ac8a631ec7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-BackEnd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-BackEnd/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-BackEnd/src/main/java/com/example/ExpenseTrackerJForce/filter/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-BackEnd/src/main/java/com/example/ExpenseTrackerJForce/filter/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-BackEnd/src/main/java/com/example/ExpenseTrackerJForce/util/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-BackEnd/src/main/java/com/example/ExpenseTrackerJForce/util/JwtUtil.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +81,7 @@
       <workItem from="1766978244418" duration="5289000" />
       <workItem from="1766983603205" duration="3127000" />
       <workItem from="1766986843148" duration="6236000" />
-      <workItem from="1766999132400" duration="2750000" />
+      <workItem from="1766999132400" duration="3989000" />
     </task>
     <servers />
   </component>

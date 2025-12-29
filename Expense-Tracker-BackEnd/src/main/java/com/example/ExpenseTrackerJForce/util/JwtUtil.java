@@ -3,98 +3,48 @@ package com.example.ExpenseTrackerJForce.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
-@Component
+@Component // This fixes the 'UnsatisfiedDependencyException'
 public class JwtUtil {
 
-    // ✅ Load secret from environment / application.properties
-    private final SecretKey secretKey;
+    // Use a key that is at least 32 characters long
+    private final String SECRET_STRING = "your_very_secure_and_long_secret_key_32_chars_min";
+    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET_STRING.getBytes(StandardCharsets.UTF_8));
 
-    // 10 hours
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10;
-
-    public JwtUtil(
-            @Value("${jwt.secret}") String secret
-    ) {
-        this.secretKey = Keys.hmacShaKeyFor(
-                secret.getBytes(StandardCharsets.UTF_8)
-        );
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .subject(username)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
+                .signWith(SECRET_KEY)
+                .compact();
     }
-
-    /* ==================== TOKEN EXTRACTION ==================== */
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    public <T> T extractClaim(
-            String token,
-            Function<Claims, T> claimsResolver
-    ) {
-        Claims claims = extractAllClaims(token);
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = Jwts.parser()
+                .verifyWith(SECRET_KEY)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    public boolean validateToken(String token, org.springframework.security.core.userdetails.UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    /* ==================== TOKEN CREATION ==================== */
-
-    public String generateToken(String username) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, username);
-    }
-
-    private String createToken(
-            Map<String, Object> claims,
-            String subject
-    ) {
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date())
-                .setExpiration(
-                        new Date(System.currentTimeMillis() + EXPIRATION_TIME)
-                )
-                .signWith(secretKey)
-                .compact();
-    }
-
-    /* ==================== VALIDATION ==================== */
-
-    public boolean validateToken(
-            String token,
-            UserDetails userDetails
-    ) {
-        try {
-            String username = extractUsername(token);
-            return username.equals(userDetails.getUsername())
-                    && !isTokenExpired(token);
-        } catch (Exception e) {
-            return false;
-        }
+        return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 }
