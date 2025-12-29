@@ -1,11 +1,11 @@
 package com.example.ExpenseTrackerJForce.config;
 
 import com.example.ExpenseTrackerJForce.filter.JwtAuthenticationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,28 +15,28 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.*;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                // ✅ Enable CORS with custom config
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // ✅ Let Spring Security handle CORS correctly
+                .cors(Customizer.withDefaults())
 
-                // ✅ Disable CSRF (JWT based app)
+                // ✅ Disable CSRF for JWT
                 .csrf(AbstractHttpConfigurer::disable)
 
                 // ✅ Stateless session
@@ -44,10 +44,10 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // ✅ Authorization rules
+                // ✅ Authorization
                 .authorizeHttpRequests(auth -> auth
 
-                        // 🔥 VERY IMPORTANT — allow preflight
+                        // 🔥 REQUIRED for browser preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // Public endpoints
@@ -57,7 +57,7 @@ public class SecurityConfig {
                                 "/error"
                         ).permitAll()
 
-                        // All others secured
+                        // Secured endpoints
                         .anyRequest().authenticated()
                 );
 
@@ -70,24 +70,22 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ✅ CORS configuration
+    // ✅ CORS configuration (Spring Boot 3 SAFE)
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000",
-                "http://localhost:5173",
-                "https://expense-tracker-frontend-nine-omega.vercel.app"
+        configuration.setAllowedOriginPatterns(List.of(
+                "https://expense-tracker-frontend-nine-omega.vercel.app",
+                "http://localhost:*"
         ));
 
-        configuration.setAllowedMethods(Arrays.asList(
+        configuration.setAllowedMethods(List.of(
                 "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
         ));
 
-        configuration.setAllowedHeaders(Collections.singletonList("*"));
-
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =

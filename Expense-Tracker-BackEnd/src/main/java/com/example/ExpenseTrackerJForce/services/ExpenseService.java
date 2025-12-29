@@ -17,15 +17,19 @@ public class ExpenseService {
     private final ExpenseRepository expenseRepo;
     private final UserRepository userRepo;
 
-    public ExpenseService(ExpenseRepository expenseRepo, UserRepository userRepo) {
+    public ExpenseService(
+            ExpenseRepository expenseRepo,
+            UserRepository userRepo
+    ) {
         this.expenseRepo = expenseRepo;
         this.userRepo = userRepo;
     }
 
-    // Add expense for given userId
     public Expensee addExpense(Long userId, Expensee ex) {
         User user = userRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + userId)
+                );
         ex.setUser(user);
         return expenseRepo.save(ex);
     }
@@ -37,25 +41,19 @@ public class ExpenseService {
         expenseRepo.deleteById(id);
     }
 
-    public void updateExpense(Expensee ex) {
-               expenseRepo.save(ex);
+    public Expensee updateExpense(Expensee ex) {
+        return expenseRepo.save(ex);
     }
 
     @Transactional(readOnly = true)
     public List<ExpenseDTO> getExpensesByUser(Long userId) {
-        // Verify user exists first
+
         if (!userRepo.existsById(userId)) {
             throw new RuntimeException("User not found with id: " + userId);
         }
 
-        List<Expensee> expenses = expenseRepo.findByUser_Id(userId);
-
-        System.out.println("Found " + expenses.size() + " expenses for user " + userId);
-        expenses.forEach(expense -> System.out.println(
-                "Expense: " + expense.getId() + " - " + expense.getName() + " - " + expense.getAmount()
-        ));
-
-        return expenses.stream()
+        return expenseRepo.findByUser_Id(userId)
+                .stream()
                 .map(expense -> new ExpenseDTO(
                         expense.getId(),
                         expense.getName(),
