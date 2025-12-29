@@ -31,7 +31,7 @@ let AddExpense = () => {
             console.log("Sending request to backend...");
 
             let response = await axios.post(
-                `http://localhost:8080/expense/addExpense/${userId}`,
+                `https://expense-tracker-1h10.onrender.com/expense/addExpense/${userId}`,
                 {
                     name: name,
                     amount: parseInt(amount),

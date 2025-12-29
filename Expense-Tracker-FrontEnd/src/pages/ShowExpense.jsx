@@ -25,7 +25,7 @@ let ShowExpense = () => {
 
             console.log("Fetching expenses for user:", loggedUserId);
 
-            const response = await axios.get(`http://localhost:8080/expense/user/${loggedUserId}`, {
+            const response = await axios.get(`https://expense-tracker-1h10.onrender.com/expense/user/${loggedUserId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -81,7 +81,7 @@ let ShowExpense = () => {
     function removeExpense(id) {
         if (window.confirm("Are you sure you want to delete this expense?")) {
             const token = localStorage.getItem("token");
-            axios.delete(`http://localhost:8080/expense/deleteExpense/${id}`, {
+            axios.delete(`https://expense-tracker-1h10.onrender.com/expense/deleteExpense/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

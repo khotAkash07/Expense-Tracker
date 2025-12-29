@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc93fe76-037f-43e4-9e30-54ac8a631ec7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Expense-Tracker-BackEnd/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/AddExpence.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/AddExpence.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/Registration.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/Registration.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/ShowExpense.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/ShowExpense.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/UpdateExpense.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/src/pages/UpdateExpense.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +84,7 @@
       <workItem from="1766597269367" duration="256000" />
       <workItem from="1766978244418" duration="5289000" />
       <workItem from="1766983603205" duration="3127000" />
-      <workItem from="1766986843148" duration="3348000" />
+      <workItem from="1766986843148" duration="4645000" />
     </task>
     <servers />
   </component>

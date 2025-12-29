@@ -67,7 +67,7 @@ let UpdateExpense = () => {
         console.log("Sending update request:", updatedExpense);
 
         try {
-            const response = await axios.put("http://localhost:8080/expense", updatedExpense, {
+            const response = await axios.put("https://expense-tracker-1h10.onrender.com/expense", updatedExpense, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'

@@ -10,7 +10,7 @@ let Registration = () => {
 
     function addUser() {
         if (userName && password && email && fullName) {
-            axios.post("http://localhost:8080/user/addUser", {
+            axios.post("https://expense-tracker-1h10.onrender.com/user/addUser", {
                 userName,
                 password,
                 email,
