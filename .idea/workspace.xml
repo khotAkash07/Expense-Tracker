@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="dc93fe76-037f-43e4-9e30-54ac8a631ec7" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Expense-Tracker-FrontEnd/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Expense-Tracker-FrontEnd" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="35jAoPMaN6yTq9DJUgQLgbTbAO2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "E:/JForceExpenseTracker",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\JForceExpenseTracker\Expense-Tracker\src" />
+      <recent name="E:\JForceExpenseTracker\Expense-Tracker\src\js" />
+      <recent name="E:\JForceExpenseTracker\Expense-Tracker\src\css" />
+      <recent name="E:\JForceExpenseTracker\Expense-Tracker\src\pages" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-WS-252.25557.126" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dc93fe76-037f-43e4-9e30-54ac8a631ec7" name="Changes" comment="" />
+      <created>1763613281536</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763613281536</updated>
+      <workItem from="1763613282697" duration="16909000" />
+      <workItem from="1763704440653" duration="15650000" />
+      <workItem from="1763726996667" duration="5560000" />
+      <workItem from="1763734501315" duration="607000" />
+      <workItem from="1766061954745" duration="1302000" />
+      <workItem from="1766261407240" duration="595000" />
+      <workItem from="1766471745745" duration="1003000" />
+      <workItem from="1766554208940" duration="1344000" />
+      <workItem from="1766597269367" duration="256000" />
+      <workItem from="1766978244418" duration="5289000" />
+      <workItem from="1766983603205" duration="3127000" />
+      <workItem from="1766986843148" duration="2475000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

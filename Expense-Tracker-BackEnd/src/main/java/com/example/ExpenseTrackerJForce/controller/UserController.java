@@ -1,0 +1,39 @@
+package com.example.ExpenseTrackerJForce.controller;
+
+import com.example.ExpenseTrackerJForce.model.User;
+import com.example.ExpenseTrackerJForce.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin("*")
+@RequestMapping("/user")
+public class UserController {
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/addUser")
+    public void saveUser(@RequestBody User user){
+        userService.saveUser(user);
+    }
+
+    @GetMapping("/allUsers")
+    public List<User> showUsers(){
+        return userService.showAllUsers();
+    }
+
+    @PostMapping("/userLogin")
+    public User login(@RequestBody User user, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.setAttribute("userName",user.getUserName());
+        return userService.login(user.getEmail(), user.getPassword());
+    }
+}
